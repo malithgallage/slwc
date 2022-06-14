@@ -1,0 +1,4 @@
+#!/bin/sh
+module load tensorflow/nvidia-19.11-tf2-py3
+pip install --user scikit-image segmentation_models wandb
+srun --time 00:30:00 --account=Project_2005434 --partition=gpu --gres=gpu:v100:1 --mem=4G python main.py -e 9 -s 1 -lr 0.00008 -ldr 0.000008 -n 9 -b 32
