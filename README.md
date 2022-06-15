@@ -5,6 +5,7 @@ This repository consists of training phase of CASA model to tune hyper parameter
 ## Improvements done on top of the previous code (Abdulmomen's)
 
 - Add more arguments to choose:
+  - choose the model type `[orig|...]`
   - the backbone / architecture `[vgg16|resnet34|abdulmomen's unet]`
   - weight initialization `[imagenet|random]`
   - metrics to be plotted/logged `[f1-score|accuracy]`

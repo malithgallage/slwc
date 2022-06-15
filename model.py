@@ -18,6 +18,7 @@ arg = command_arguments()
 learning_rate = arg.learning_rate
 learning_decay_rate = arg.learning_decay_rate
 loss = arg.loss
+metric = arg.metric
 if loss == 'binary_focal_loss':
     gamma = arg.gamma
     loss = sm.losses.BinaryFocalLoss(gamma=gamma)
@@ -26,8 +27,13 @@ elif loss == 'f1_loss':
 elif loss == 'f1_loss2':
     loss = f1_loss2
 
+if metric == 'f1-score':
+    metric = sm.metrics.f1_score
+
 backbone = arg.backbone
 encoder_weights = arg.encoder_weights
+if encoder_weights == 'None':
+    encoder_weights = None
 
 img_size = (256,256,1)				# 256 * 256 grayscale img with 1 channel
 dr_rate = 0.6 					# never mind
@@ -127,8 +133,8 @@ def unet(pretrained_weights = None,input_size = img_size):
     model = Model(inputs = inputs, outputs = conv10)   
     loss = sm.losses.BinaryFocalLoss(gamma=2.0)
     model.compile(optimizer = Adam(lr = learning_rate, decay = learning_decay_rate), 
-                  loss = 'binary_crossentropy', 
-                  metrics = [sm.metrics.f1_score])
+                  loss = loss, 
+                  metrics = [metric])
     
 
     if(pretrained_weights):
@@ -136,24 +142,17 @@ def unet(pretrained_weights = None,input_size = img_size):
 
     return model
 
-def segmod()
-    BACKBONE = 'resnet34'
-    #ENCODER_WEIGHTS = 'imagenet'
-    ENCODER_WEIGHTS = None
+def segmod():
     INPUT_SHAPE = (None, None, 1)
-    # preprocess_input = sm.get_preprocessing(BACKBONE)
     sm.set_framework('tf.keras')
     sm.framework()
-    base_model = sm.Unet(backbone_name=BACKBONE, encoder_weights=ENCODER_WEIGHTS)
+    base_model = sm.Unet(backbone_name=backbone, encoder_weights=encoder_weights)
     inp = Input(shape=INPUT_SHAPE)
     l1 = Conv2D(3, (1, 1))(inp) # map N channels data to 3 channels
     out = base_model(l1)
     model = Model(inp, out, name=base_model.name)
-    # loss = sm.losses.BinaryFocalLoss(gamma=2.0)
-    model.compile(
-        'Adam',
-        # loss='binary_crossentropy',
-        loss=f1_loss,
-        metrics=[sm.metrics.f1_score],
+    model.compile(optimizer = Adam(lr = learning_rate, decay = learning_decay_rate), 
+        loss=loss,
+        metrics=[metric],
     )
     return model

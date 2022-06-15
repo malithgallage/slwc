@@ -33,6 +33,9 @@ val_plt_name = arg.val_plt_name
 img_num = arg.img_num
 filenum = arg.filenum
 
+metric_name = arg.metric
+model_type = arg.model_type
+
 ##### augmentation parameters
 rotation_range = arg.rotation_range
 width_shift_range = arg.width_shift_range
@@ -53,12 +56,12 @@ data_gen_args = dict(
 
 
 def show_train_history(train_history, train, loss, plt_save_name=plt_save_name):
-    plt.plot(train_history.history['f1-score'])
+    plt.plot(train_history.history[metric_name])
     plt.plot(train_history.history['loss'])
-    plt.plot(train_history.history['val_f1-score'])
+    plt.plot(train_history.history[f'val_{metric_name}'])
     plt.plot(train_history.history['val_loss'])
     plt.xlabel('Epoch')
-    plt.legend(['f1-score','loss', 'val_f1-score','val_loss'], loc='upper left')
+    plt.legend([metric_name,'loss', f'val_{metric_name}','val_loss'], loc='upper left')
     plt.title('Train hist')
     plt.savefig(plt_save_name)
 
@@ -66,11 +69,11 @@ def show_train_history(train_history, train, loss, plt_save_name=plt_save_name):
 trainGene = trainGenerator(batch_size, train_path, train_img_folder, train_label_folder, data_gen_args,flag_multi_class=False,save_to_dir = None)
 valGene = trainGenerator(batch_size, val_path, val_img_folder, val_label_folder, data_gen_args,flag_multi_class=False,save_to_dir = None)
 
-model = unet()
+model = unet() if model_type=='orig' else segmod()
 model.summary()
 model_checkpoint = ModelCheckpoint(model_name, monitor='loss',verbose=1, save_best_only=True)
 training = model.fit_generator(trainGene, steps_per_epoch=steps_per_epoch,
-        epochs=epochs, validation_data=valGene, validation_steps=10, callbacks=[model_checkpoint, WandbCallback()])
+        epochs=epochs, validation_data=valGene, validation_steps=10, callbacks=[model_checkpoint])
 show_train_history(training, 'accuracy', 'loss')
 #####
 

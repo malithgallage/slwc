@@ -24,6 +24,15 @@ def command_arguments():
     parser.add_argument('--trained_model', '-tr', default=0, type=int, help='Trained Model (No training)')
     parser.add_argument('--video_inference', '-vd', default=0, type=int, help='Video')
     parser.add_argument('--result_folder_name', '-rfn', default='results', help='Video')
+    # additional params
+    parser.add_argument('--loss', '-los', default='binary_crossentropy', help='loss function')
+    # TODO: Allow multiple metrics
+    parser.add_argument('--metric', '-met', default='f1-score', help='metric to log (only one is allowed, for now)')
+    parser.add_argument('--backbone', '-k', default='resnet32', help='backbone')
+    parser.add_argument('--encoder_weights', '-win', default='imagenet', help='encoder weights')
+    parser.add_argument('--gamma', '-ga', default=2.0, help='focusing parameter in binary focal loss')
+    # TODO: choose better naming for model types (instead of orig/sm)
+    parser.add_argument('--model_type', '-mt', default='orig', help='choose original(Abdulmomen\'s model or a model from segmentation_models package')
 
     
     save_result_folder = "./data/sperms/%s/%s_mrsu/" % (parser.parse_args().result_folder_name, parser.parse_args().filenum)
@@ -36,7 +45,7 @@ def command_arguments():
     parser.add_argument('--model_name', '-m', default=model_name, help='model_name')
     parser.add_argument('--plt_save_name', '-plt', default=plt_save_name, help='plt_save_name')
     parser.add_argument('--val_plt_name','-vplt', default=val_plt_name, help='val_plt_name')
-    #data aug params
+    # data aug params
     parser.add_argument('--rotation_range', '-rot', default=180, help='rotation_range')
     parser.add_argument('--width_shift_range', '-wid', default=0.9, help='width_shift_range')
     parser.add_argument('--height_shift_range', '-hei', default=0.9, help='height_shift_range')
@@ -44,10 +53,6 @@ def command_arguments():
     parser.add_argument('--vertical_flip', '-ver', default=True, help='vertical_flip')
     parser.add_argument('--horizontal_flip', '-hor', default=True, help='horizontal_flip')
     parser.add_argument('--fill_mode', '-fil', default='constant', help='fill_mode')
-    parser.add_argument('--loss', '-los', default='binary_crossentropy', help='loss function')
-    parser.add_argument('--backbone', '-back', default='resnet32', help='backbone')
-    parser.add_argument('--encoder_weights', '-ew', default='imagenet', help='encoder weights')
-    parser.add_argument('--gamma', '-ga', default=2.0 help='focusing parameter in binary focal loss')
     
 
     return parser.parse_args()
