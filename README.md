@@ -5,8 +5,8 @@ This repository consists of training phase of CASA model to tune hyper parameter
 ## Improvements done on top of the previous code (Abdulmomen's)
 
 - Add more arguments to choose:
-  - choose the model type `[orig|...]`
-  - the backbone / architecture `[vgg16|resnet34|abdulmomen's unet]`
+  - choose the model type `[orig|abdulmomen's unet]`
+  - the backbone / architecture `[vgg16|resnet34]`
   - weight initialization `[imagenet|random]`
   - metrics to be plotted/logged `[f1-score|accuracy]`
   - loss function `[binary_crossentropy|binary focal loss|f1-loss]`
