@@ -3,6 +3,6 @@ run
 *.swp
 *_fig_mrsu.png
 *.hdf5
-training_record.csv
+*_training_record.csv
 data
 !data/.gitkeep

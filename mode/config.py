@@ -34,17 +34,6 @@ def command_arguments():
     # TODO: choose better naming for model types (instead of orig/sm)
     parser.add_argument('--model_type', '-mt', default='orig', help='choose original(Abdulmomen\'s model or a model from segmentation_models package')
 
-    
-    save_result_folder = "./data/sperms/%s/%s_mrsu/" % (parser.parse_args().result_folder_name, parser.parse_args().filenum)
-    model_name = '%s_mrsu_lichi.hdf5' % parser.parse_args().filenum
-    plt_save_name = '%s_fig_mrsu.png' % parser.parse_args().filenum
-    val_plt_name = '%s_val.png' % parser.parse_args().filenum
-
-    parser.add_argument('--save_result_folder', '-save', default=save_result_folder, help='save_result_folder')
-    parser.add_argument('--csvfilename', '-csv', default="training_record.csv", help='csv file name')
-    parser.add_argument('--model_name', '-m', default=model_name, help='model_name')
-    parser.add_argument('--plt_save_name', '-plt', default=plt_save_name, help='plt_save_name')
-    parser.add_argument('--val_plt_name','-vplt', default=val_plt_name, help='val_plt_name')
     # data aug params
     parser.add_argument('--rotation_range', '-rot', default=180, help='rotation_range')
     parser.add_argument('--width_shift_range', '-wid', default=0.9, help='width_shift_range')
@@ -53,6 +42,19 @@ def command_arguments():
     parser.add_argument('--vertical_flip', '-ver', default=True, help='vertical_flip')
     parser.add_argument('--horizontal_flip', '-hor', default=True, help='horizontal_flip')
     parser.add_argument('--fill_mode', '-fil', default='constant', help='fill_mode')
+
+    
+    save_result_folder = "./data/sperms/%s/%s_mrsu/" % (parser.parse_args().result_folder_name, parser.parse_args().filenum)
+    model_name = '%s_mrsu_lichi.hdf5' % parser.parse_args().filenum
+    plt_save_name = '%s_fig_mrsu.png' % parser.parse_args().filenum
+    val_plt_name = '%s_val.png' % parser.parse_args().filenum
+    training_record_name = '%s_training_record.csv' % parser.parse_args().filenum
+
+    parser.add_argument('--save_result_folder', '-save', default=save_result_folder, help='save_result_folder')
+    parser.add_argument('--csvfilename', '-csv', default=training_record_name, help='csv file name')
+    parser.add_argument('--model_name', '-m', default=model_name, help='model_name')
+    parser.add_argument('--plt_save_name', '-plt', default=plt_save_name, help='plt_save_name')
+    parser.add_argument('--val_plt_name','-vplt', default=val_plt_name, help='val_plt_name')
     
 
     return parser.parse_args()
