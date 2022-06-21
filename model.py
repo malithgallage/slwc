@@ -19,6 +19,7 @@ learning_rate = arg.learning_rate
 learning_decay_rate = arg.learning_decay_rate
 loss = arg.loss
 metric = arg.metric
+# Changing the loss function according to the commandline arguments
 if loss == "binary_focal_loss":
     gamma = arg.gamma
     loss = sm.losses.BinaryFocalLoss(gamma=gamma)
@@ -48,6 +49,9 @@ def unet(
     loss=loss,
     metric=metric,
 ):
+    """
+    This is the model for Unet architecture
+    """
     inputs = Input(input_size)
     conv1 = Conv2D(
         64, 3, activation=None, padding="same", kernel_initializer="he_normal"
@@ -206,6 +210,11 @@ def segmod(
     loss=loss,
     metric=metric,
 ):
+    """
+    This function is used to create the unet model with
+    a different backbone. The available backbone types are given
+    in the README file.
+    """
     INPUT_SHAPE = (None, None, 1)
     sm.set_framework("tf.keras")
     sm.framework()
