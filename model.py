@@ -1,4 +1,4 @@
-from tensorflow.keras.models import concatenate, Model
+from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (
     Input,
     Conv2D,
@@ -7,6 +7,7 @@ from tensorflow.keras.layers import (
     MaxPooling2D,
     UpSampling2D,
     Dropout,
+    concatenate
 )
 from tensorflow.keras.optimizers import Adam
 from mode.config import command_arguments
