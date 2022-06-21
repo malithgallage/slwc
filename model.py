@@ -40,7 +40,14 @@ dr_rate = 0.6
 leakyrelu_alpha = 0.3
 
 
-def unet(pretrained_weights=None, input_size=img_size):
+def unet(
+    pretrained_weights=None,
+    input_size=img_size,
+    learning_rate=learning_rate,
+    learning_decay_rate=learning_decay_rate,
+    loss=loss,
+    metric=metric,
+):
     inputs = Input(input_size)
     conv1 = Conv2D(
         64, 3, activation=None, padding="same", kernel_initializer="he_normal"
@@ -191,7 +198,14 @@ def unet(pretrained_weights=None, input_size=img_size):
     return model
 
 
-def segmod():
+def segmod(
+    backbone=backbone,
+    encoder_weights=encoder_weights,
+    learning_rate=learning_rate,
+    learning_decay_rate=learning_decay_rate,
+    loss=loss,
+    metric=metric,
+):
     INPUT_SHAPE = (None, None, 1)
     sm.set_framework("tf.keras")
     sm.framework()
