@@ -1,3 +1,8 @@
+"""
+This module defines the models for Unet architecture which can be
+customized with different types of backbones.
+"""
+
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (
     Input,
