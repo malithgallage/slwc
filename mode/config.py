@@ -30,17 +30,17 @@ def command_arguments():
     parser.add_argument('--metric', '-met', default='f1-score', help='metric to log (only one is allowed, for now)')
     parser.add_argument('--backbone', '-k', default='resnet32', help='backbone')
     parser.add_argument('--encoder_weights', '-win', default='imagenet', help='encoder weights')
-    parser.add_argument('--gamma', '-ga', default=2.0, help='focusing parameter in binary focal loss')
+    parser.add_argument('--gamma', '-ga', default=2.0, type=float, help='focusing parameter in binary focal loss')
     # TODO: choose better naming for model types (instead of orig/sm)
     parser.add_argument('--model_type', '-mt', default='orig', help='choose original(Abdulmomen\'s model or a model from segmentation_models package')
 
     # data aug params
-    parser.add_argument('--rotation_range', '-rot', default=180, help='rotation_range')
-    parser.add_argument('--width_shift_range', '-wid', default=0.9, help='width_shift_range')
-    parser.add_argument('--height_shift_range', '-hei', default=0.9, help='height_shift_range')
-    parser.add_argument('--zoom_range', '-zoo', default=0, help='zoom_range')
-    parser.add_argument('--vertical_flip', '-ver', default=True, help='vertical_flip')
-    parser.add_argument('--horizontal_flip', '-hor', default=True, help='horizontal_flip')
+    parser.add_argument('--rotation_range', '-rot', default=180, type=float, help='rotation_range')
+    parser.add_argument('--width_shift_range', '-wid', default=0.9, type=float, help='width_shift_range')
+    parser.add_argument('--height_shift_range', '-hei', default=0.9, type=float, help='height_shift_range')
+    parser.add_argument('--zoom_range', '-zoo', default=0, type=float, help='zoom_range')
+    parser.add_argument('--vertical_flip', '-ver', default=True, type=bool, help='vertical_flip')
+    parser.add_argument('--horizontal_flip', '-hor', default=True, type=bool, help='horizontal_flip')
     parser.add_argument('--fill_mode', '-fil', default='constant', help='fill_mode')
 
     
